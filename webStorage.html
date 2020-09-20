@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+    <script>
+        const doFirst = () => {
+            const button = document.getElementById('button');
+            button.addEventListener("click", save, false);
+            display();
+        }
+
+        const save = () => {
+            const key = document.getElementById('key').value;
+            const value = document.getElementById('value').value;
+            sessionStorage.setItem(key, value);
+            display();
+            key.value = "";
+            value.value = "";
+        }
+
+        const display = () => {
+            const display_data = document.getElementById('display_data');
+            display_data.innerHTML = "";
+            for (let i = 0; i < sessionStorage.length; i++) {
+                const a = sessionStorage.key(i);
+                const b = sessionStorage.getItem(a);
+                display_data.innerHTML += a + " - " + b + " <br>";
+            }
+        }
+
+        const clear = () => {
+            sessionStorage.clear();
+            location.reload();
+        }
+
+        window.addEventListener("load", doFirst, false);
+
+
+    </script>
+
+
+    <style>
+        input[type="text"] {
+            width: 97%;
+            height: 20px;
+            border-radius: 5px;
+            border: #ccc 1px solid;
+        }
+
+        #box {
+            width: 270px;
+            padding: 10px;
+            background: #ccc;
+            border-radius: 10px;
+            margin: auto;
+            overflow: auto;
+        }
+    </style>
+
+</head>
+
+<body>
+    <section id="box">
+        <form>
+            <p>The key : <br> <input type="text" id="key"></p>
+            <p>The Value : <br><input type="text" id="value"></p>
+            <p><input type="submit" id="button" value="submit"></p>
+            <a href="javascript:clear()">clear</a>
+        </form>
+
+    </section>
+
+    <section id="display_data"></section>
+</body>
+
+</html>
